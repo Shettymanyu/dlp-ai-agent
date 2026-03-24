@@ -1,7 +1,7 @@
 import os
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from src.config import Config
 
@@ -27,9 +27,9 @@ def process_pdf():
     docs = text_splitter.split_documents(documents)
     print(f" Dividing {len(docs)} in chunks ")
     
-    # 3. Embeddings aur Vector Store banayein
+    # 3. Embeddings aur Vector Store banayein (HuggingFace - free!)
     # Embeddings text ko numbers (vectors) mein convert karti hain
-    embeddings = OpenAIEmbeddings(openai_api_key=Config.OPENAI_API_KEY)
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
     print(" Creating Vector Database  (ChromaDB)...")
     vectorstore = Chroma.from_documents(
