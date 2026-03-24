@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from langchain.chains import RetrievalQA
+from langchain_community.chains import RetrievalQA
 from src.config import Config
 
 def get_ai_response(vectorstore, user_query):
@@ -10,7 +10,7 @@ def get_ai_response(vectorstore, user_query):
         # 1. GPT Model initialize karein (Config file se key uthayega)
         llm = ChatOpenAI(
             model_name=Config.MODEL_NAME,
-            openai_api_key=Config.Config.OPENAI_API_KEY, # .env se load hui key
+            openai_api_key=Config.OPENAI_API_KEY, # Fixed: was Config.Config.OPENAI_API_KEY
             temperature=0.2 # Kam temperature matlab zyada accurate aur factual answers
         )
         
