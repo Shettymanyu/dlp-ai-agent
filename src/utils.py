@@ -6,19 +6,17 @@ from langchain_chroma import Chroma
 from src.config import Config
 
 def process_pdf():
-    """
-    PDF load karega, split karega, aur Vector Store banayega/load karega.
-    """
+    
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     persist_dir = "./chroma_db"
 
-    # Agar DB pehle se hai, toh usko load karo
+    
     if os.path.exists(persist_dir) and os.listdir(persist_dir):
-        print("🔄 Existing Vector Database load kar rahe hain...")
+        print("🔄 Existing Vector Database ...")
         vectorstore = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
         return vectorstore
 
-    # Naya DB banane ka logic
+    
     pdf_paths = [path.strip() for path in Config.PDF_PATH.split(",")]
     all_documents = []
     
