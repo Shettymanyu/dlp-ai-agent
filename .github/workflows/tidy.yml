@@ -1,15 +1,15 @@
-name: readme-refresh
+name: tidy
 
 on:
   schedule:
-    - cron: "17 * * * *" # every hour at :17
+    - cron: "17 0-23/3 * * *" # every 3 hours, staggered with the other repos
   workflow_dispatch: # manual "Run workflow" button
 
 permissions:
   contents: write
 
 jobs:
-  update:
+  tidy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -19,11 +19,11 @@ jobs:
           node-version: 22
 
       - name: Self-test
-        run: node bot/readme-word.js --test
+        run: node bot/touch.js --test
 
       # Commits as YOU (noreply email), not github-actions[bot], so it counts on the graph.
-      - name: Delete + restore a README word
+      - name: Tidy one source file
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          node bot/readme-word.js
+          node bot/touch.js
