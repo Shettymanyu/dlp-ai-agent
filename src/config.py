@@ -17,3 +17,4 @@ class Config:
     # Error handling: Check karein ki key load hui ya nahi
     if not GOOGLE_API_KEY:
         print("⚠️ Warning: GOOGLE_API_KEY nahi mili! Apni .env file check karein.")
+
