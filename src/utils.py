@@ -47,4 +47,3 @@ def process_pdf():
     
     print("Vector Database is ready")
     return vectorstore
-
